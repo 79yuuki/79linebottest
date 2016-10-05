@@ -10,7 +10,7 @@ router.post('/', function(req, res, next) {
     'Authorization': 'Bearer E0IiIncd16SGcA5R9RS2Vgg/tu9VRhBtQLj/LGS7MGMPO7bmrhMOcRZ6cpU7Lj2kMYf910aWElRTtP3XA9+Rhv2wkguUrdBeA+NNCe+/QW3WP7P6FkgSWVMMe1oyQn4tShCSxkbhkx9MaZSUUB0wfgdB04t89/1O/w1cDnyilFU='
   };
 
-  console.log(req.body);
+  console.log(req.body.events[0]);
 
   var token
   var message = 'default message';
