@@ -71,7 +71,9 @@ router.post('/', function(req, res, next) {
     var main = weatherMainTranslation(weather.main);
     var temp = res.body.main.temp - 273.15;
     var description = weatherCodes(weather.id).description;
-    var nowWeather = main + ', ' + description + ', ' + Math.round(temp) + '℃';
+    var nowWeather = '今の天気は' + main + ', ' + description + ', ' + Math.round(temp) + '℃';
+
+    // 今後の天気
     request.get(weatherForecastUrl + query)
     .end((err, res) => {
       if (err) {
@@ -80,7 +82,7 @@ router.post('/', function(req, res, next) {
       var now = new Date().getTime();
       var weatherList = res.body.list;
       var weather = null;
-      for(var i=0; weatherList > i; i++) {
+      for (var i=0; weatherList.length > i; i++) {
         var w = weatherList[i];
         if (w.dt > now) {
           if (!weather) {
