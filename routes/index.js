@@ -27,7 +27,7 @@ var replyMessage = (event, message) => {
 };
 
 var weatherMainTranslation = (main) => {
-  let translation;
+  var translation;
   switch(main) {
     case 'Clear':
       translation = '晴れ';
