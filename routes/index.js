@@ -84,6 +84,7 @@ router.post('/', function(req, res, next) {
       var weather = null;
       for (var i=0; weatherList.length > i; i++) {
         var w = weatherList[i];
+        console.log(w, now);
         if (w.dt > now) {
           if (!weather) {
             weather = w;
