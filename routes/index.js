@@ -3,22 +3,11 @@ var router = express.Router();
 var request = require('superagent');
 var url = 'https://api.line.me/v2/bot/message/reply';
 
-/* GET home page. */
-router.post('/', function(req, res, next) {
-  var headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer E0IiIncd16SGcA5R9RS2Vgg/tu9VRhBtQLj/LGS7MGMPO7bmrhMOcRZ6cpU7Lj2kMYf910aWElRTtP3XA9+Rhv2wkguUrdBeA+NNCe+/QW3WP7P6FkgSWVMMe1oyQn4tShCSxkbhkx9MaZSUUB0wfgdB04t89/1O/w1cDnyilFU='
-  };
+var weatherKey = '23ee2b30dac011b53623c815da39f75d';
+var weatherUrl = 'http://api.openweathermap.org/data/2.5/weather?q=London';
 
-  console.log(req.body.events[0]);
-
-  var event = req.body.events[0];
-  if (event.type !== 'beacon') {
-    replyMessage('Beaconに近づいてね！', event);
-  }
-
+var replyMessage = (event, message = 'Hello beacon!') => {
   var token = event.replyToken;
-  var message = 'Hello beacon!';
   var body = {
     'replyToken': token,
     'messages': [
@@ -31,10 +20,31 @@ router.post('/', function(req, res, next) {
   .set('Content-Type', 'application/json')
   .set('Authorization', 'Bearer E0IiIncd16SGcA5R9RS2Vgg/tu9VRhBtQLj/LGS7MGMPO7bmrhMOcRZ6cpU7Lj2kMYf910aWElRTtP3XA9+Rhv2wkguUrdBeA+NNCe+/QW3WP7P6FkgSWVMMe1oyQn4tShCSxkbhkx9MaZSUUB0wfgdB04t89/1O/w1cDnyilFU=')
   .end((err, res) => {
-    console.log(err, res);
+    console.log('send message!');
   });
+};
 
-  //res.status(200);
+/* GET home page. */
+router.post('/', function(req, res, next) {
+
+  //console.log(req.body.events[0]);
+
+  var event = req.body.events[0];
+
+  if (event.type !== 'beacon') {
+    replyMessage(event, 'Beaconに近づいてね！');
+  }
+
+  let query = weatherUrl + '?zip=151-0053,JP&APPID=#{' + weatherKey + '}';
+  request.get(query)
+  .end((err, res) => {
+    if (err) {
+      return replyMessage(event, 'WeatherAPI Error...');
+    }
+    let weather = res.body.weather[0];
+
+    replyMessage(event, weather.main + ', ' + weather.description);
+  });
 });
 
 module.exports = router;
