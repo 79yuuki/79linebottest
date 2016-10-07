@@ -89,13 +89,13 @@ router.post('/', function(req, res, next) {
             // next 3h weather
             var nextWeatherData = weatherCodes(w.weather.id);
             var nextWeather = 'これからの天気は ' + nextWeatherData.main
-            + '気温は' + w.main.temp - 273.15 + '℃ '
+            + '\n気温は' + (w.main.temp - 273.15) + '℃ \n'
             + nextWeatherData.description + ' です。'
             break;
           }
         }
       };
-      replyMessage(event, nowWeather + ' ' + nextWeather);
+      replyMessage(event, nowWeather + '\n\n' + nextWeather);
     })
   });
 });
