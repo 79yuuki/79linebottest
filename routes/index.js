@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('superagent');
 var url = 'https://api.line.me/v2/bot/message/reply';
-var weatherCodes = require('../lib/discription-jp');
+var weatherCodes = require('../lib/description-jp');
 
 var weatherKey = '23ee2b30dac011b53623c815da39f75d';
 var weatherUrl = 'http://api.openweathermap.org/data/2.5/weather';
