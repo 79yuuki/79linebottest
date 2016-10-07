@@ -35,7 +35,7 @@ router.post('/', function(req, res, next) {
     replyMessage(event, 'Beaconに近づいてね！');
   }
 
-  let query = weatherUrl + '?zip=151-0053,JP&APPID=#{' + weatherKey + '}';
+  var query = weatherUrl + '?zip=151-0053,JP&APPID=#{' + weatherKey + '}';
   request.get(query)
   .end((err, res) => {
     if (err) {
