@@ -70,8 +70,8 @@ router.post('/', function(req, res, next) {
 
     var main = weatherMainTranslation(weather.main);
     var temp = res.body.main.temp - 273.15;
-    var description = weatherCodes(weather.id);
-    var nowWeather = main + ', ' + description + ', ' + temp + '℃';
+    var description = weatherCodes(weather.id).description;
+    var nowWeather = main + ', ' + description + ', ' + Math.round(temp) + '℃';
     request.get(weatherForecastUrl + query)
     .end((err, res) => {
       if (err) {
@@ -85,17 +85,17 @@ router.post('/', function(req, res, next) {
         if (w.dt > now) {
           if (!weather) {
             weather = w;
-            break;
           } else {
             // next 3h weather
             var nextWeatherData = weatherCodes(w.weather.id);
             var nextWeather = 'これからの天気は ' + nextWeatherData.main
-            + '%0D%0A気温は' + w.main.temp - 273.15 + '℃%0D%0A'
+            + '気温は' + w.main.temp - 273.15 + '℃ '
             + nextWeatherData.description + ' です。'
+            break;
           }
         }
       };
-      replyMessage(event, nowWeather + '%0D%0A%0D%0A' + nextWeather);
+      replyMessage(event, nowWeather + ' ' + nextWeather);
     })
   });
 });
