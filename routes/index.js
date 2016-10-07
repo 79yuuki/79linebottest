@@ -43,7 +43,10 @@ router.post('/', function(req, res, next) {
     }
     var weather = res.body.weather[0];
 
-    replyMessage(event, weather.main + ', ' + weather.description);
+    var main = weather.main;
+    var temp = weather.temp - 273.15;
+    var description = weather.description;
+    replyMessage(event, main + ', ' + description + ', ' + temp + '℃');
   });
 });
 
