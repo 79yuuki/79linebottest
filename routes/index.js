@@ -69,8 +69,8 @@ router.post('/', function(req, res, next) {
     var weather = res.body.weather[0];
 
     var main = weatherMainTranslation(weather.main);
-    var temp = weather.main.temp - 273.15;
-    var description = weather.description;
+    var temp = res.body.main.temp - 273.15;
+    var description = weatherCodes(weather.id);
     var nowWeather = main + ', ' + description + ', ' + temp + '℃';
     request.get(weatherForecastUrl + query)
     .end((err, res) => {
@@ -80,7 +80,7 @@ router.post('/', function(req, res, next) {
       var now = new Date().getTime();
       var weatherList = res.body.list;
       var weather = null;
-      for(var i=9; weatherList > i; i++) {
+      for(var i=0; weatherList > i; i++) {
         var w = weatherList[i];
         if (w.dt > now) {
           if (!weather) {
