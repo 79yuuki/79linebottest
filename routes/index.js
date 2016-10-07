@@ -6,7 +6,7 @@ var url = 'https://api.line.me/v2/bot/message/reply';
 var weatherKey = '23ee2b30dac011b53623c815da39f75d';
 var weatherUrl = 'http://api.openweathermap.org/data/2.5/weather?q=London';
 
-var replyMessage = (event, message = 'Hello beacon!') => {
+var replyMessage = (event, message) => {
   var token = event.replyToken;
   var body = {
     'replyToken': token,
