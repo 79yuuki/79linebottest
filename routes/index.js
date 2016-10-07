@@ -13,7 +13,7 @@ router.post('/', function(req, res, next) {
   console.log(req.body.events[0]);
 
   var event = req.body.events[0];
-  if (event !== 'beacon') {
+  if (event.type !== 'beacon') {
     replyMessage('Beaconに近づいてね！', event);
   }
 
