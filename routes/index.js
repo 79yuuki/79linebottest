@@ -79,12 +79,11 @@ router.post('/', function(req, res, next) {
       if (err) {
         return replyMessage(event, 'WeatherAPI Error...');
       }
-      var now = new Date().getTime();
+      var now = new Date().getTime() / 10000;
       var weatherList = res.body.list;
       var weather = null;
       for (var i=0; weatherList.length > i; i++) {
         var w = weatherList[i];
-        console.log(w, now);
         if (w.dt > now) {
           if (!weather) {
             weather = w;
