@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
     if (err) {
       return replyMessage(event, 'WeatherAPI Error...');
     }
-    let weather = res.body.weather[0];
+    var weather = res.body.weather[0];
 
     replyMessage(event, weather.main + ', ' + weather.description);
   });
